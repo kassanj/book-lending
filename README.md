@@ -5,6 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Installation
 
 ```
-git clone https://github.com/kassanj/book-lending/
-cd book-lending
+$ git clone https://github.com/kassanj/book-lending/
+$ cd book-lending
+$ npm install
+$ npm start
 ```
