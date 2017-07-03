@@ -1,30 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import Book from './Book'
+import Shelf from './Shelf'
 
-class Bookshelf extends Component {
+class Bookcase extends Component {
 
   render() {
 
   	const { books } = this.props
 
-    return (      
-	    <div className="bookshelf">
-	      <h2 className="bookshelf-title">Read</h2>
-	      <div className="bookshelf-books">
-	        <ol className="books-grid">
-	           {books.map((book) => (
-	          	<li>
-	          		<Book book={book} key={book.title} />
-	          	</li>
-          	))}
-	        </ol>
-	      </div>
-	    </div>
+  	var collection = [];
+  	var shelf = [];
+    var lastShelf = null;
+
+    this.props.books.forEach(function(book) {
+      if (book.shelf !== lastShelf) {
+        shelf.push(<Shelf shelf={book.shelf} array={collection} key={book.shelf} />);
+      }
+      if (book.shelf == )
+      collection.push(<Book book={book} key={book.title} />);
+      lastShelf = book.shelf;
+    });
+
+    return (  
+	    <div>{shelf}</div>
     )   
   }
 }
 
-export default Bookshelf
+export default Bookcase
 
 
