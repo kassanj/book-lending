@@ -8,19 +8,21 @@ import Bookshelf from './Bookshelf'
 class ListBooks extends Component {
 
   render() {
+    const { books } = this.props
+
     return (
       <div className="list-books">
         <div className="list-books-title">
-          <h1>MyReads</h1>
+          <h1>My Reads</h1>
         </div>
         <div className="list-books-content">
           <div>
-            <Bookshelf />
+            <Bookshelf books={ books } />
           </div>
         </div>
         <div className="open-search">
         <Link to='/search' className='add-book'>Add a book</Link>
-    {/*      <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>*/}
+        {/*<a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>*/}
         </div>
       </div>
     )
