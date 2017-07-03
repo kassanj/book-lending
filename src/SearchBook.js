@@ -17,7 +17,7 @@ class SearchBooks extends Component {
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
   }
-  
+
   render() {
   	const { books } = this.props
   	const { query } = this.state
@@ -33,7 +33,6 @@ class SearchBooks extends Component {
     return (      
    		<div className="search-books">
 	        <div className="search-books-bar">
-	          {/*<a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>*/}
 	           <Link to='/' className="close-search">Close</Link>
 	          <div className="search-books-input-wrapper">
 		           <input
