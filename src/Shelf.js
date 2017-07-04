@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
+import changeCase from 'change-case'
 import Book from './Book'
 
 class Shelf extends Component {
 
+
   render() {
 
-		// const { shelf } = this.props
-		// const { book } = this.props
+  	  var changeCase = require('change-case');
+
+	// const { mappedShelves } = this.props
+	const { filteredBooks, shelf } = this.props
 
     return (
     	<div className="bookshelf">
-	      <h2 className="bookshelf-title">{this.props.shelf}</h2>
+	      <h2 className="bookshelf-title">{changeCase.sentenceCase(this.props.shelf)}</h2>
 	      	<div className="bookshelf-books">
 	        <ol className="books-grid">
-	        
-			         {/* <Book book={book} key={book.title} />	*/}
-        
+	     		{this.props.filteredBooks.map(function(book, i){
+        			return <Book book={book} key={i} />;
+    			})}
 	        </ol>
 	      </div>
 	    </div>

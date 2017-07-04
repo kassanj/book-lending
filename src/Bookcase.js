@@ -8,8 +8,7 @@ class Bookcase extends Component {
   render() {
 
   	const { books } = this.props
-    const filteredBooks = [];
-  	const shelves = [];
+  	var shelves = [];
     var lastShelf = null;
 
     this.props.books.forEach(function(book) {
@@ -20,16 +19,16 @@ class Bookcase extends Component {
     });
 
 
-    shelves.map((shelf, i) => {
-        const filteredBooks = books.filter((book, i) => {
-            return book.shelf === shelf
-            console.log(filteredBooks);
-        }); 
-        console.log(<Shelf books={ shelf, filteredBooks } />)
-     })
+ const mappedShelves = shelves.map((shelf, i) => {
+    const filteredBooks = books.filter((book, i) => {
+      return book.shelf === shelf
+    });
+    return <Shelf key={i} shelf={shelf} filteredBooks={filteredBooks} />
+  })
+
 
     return (
-      <div><Shelf books={ filteredBooks } /></div>
+      <div>{mappedShelves}</div>
     )
   }
 }
