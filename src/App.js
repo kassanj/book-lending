@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ListBooks from './ListBooks'
 import SearchBook from './SearchBook'
 import * as BooksAPI from './BooksAPI'
@@ -16,6 +17,7 @@ class BooksApp extends Component {
   }  
   render() {
     return (
+    <MuiThemeProvider>
       <div className="app">
          <Route exact path='/' render={() => (
             <ListBooks 
@@ -28,6 +30,7 @@ class BooksApp extends Component {
           />
         )}/>
       </div>
+    </MuiThemeProvider>
     )
   }
 }

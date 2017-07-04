@@ -9,9 +9,7 @@ class Shelf extends Component {
 
   render() {
 
-  	  var changeCase = require('change-case');
-
-	// const { mappedShelves } = this.props
+  	var changeCase = require('change-case');
 	const { filteredBooks, shelf } = this.props
 
     return (

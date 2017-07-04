@@ -19,12 +19,12 @@ class Bookcase extends Component {
     });
 
 
- const mappedShelves = shelves.map((shelf, i) => {
-    const filteredBooks = books.filter((book, i) => {
-      return book.shelf === shelf
-    });
-    return <Shelf key={i} shelf={shelf} filteredBooks={filteredBooks} />
-  })
+    const mappedShelves = shelves.map((shelf, i) => {
+      const filteredBooks = books.filter((book, i) => {
+        return book.shelf === shelf
+      });
+      return <Shelf key={i} shelf={shelf} filteredBooks={filteredBooks} />
+    })
 
 
     return (
