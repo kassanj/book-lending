@@ -7,8 +7,8 @@ class Shelf extends Component {
 
   render() {
 
-		const { shelf } = this.props
-		const { book } = this.props
+		// const { shelf } = this.props
+		// const { book } = this.props
 
     return (
     	<div className="bookshelf">

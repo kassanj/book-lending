@@ -8,23 +8,29 @@ class Bookcase extends Component {
   render() {
 
   	const { books } = this.props
-
-  	var collection = [];
-  	var shelf = [];
+    const filteredBooks = [];
+  	const shelves = [];
     var lastShelf = null;
 
     this.props.books.forEach(function(book) {
       if (book.shelf !== lastShelf) {
-        shelf.push(<Shelf shelf={book.shelf} array={collection} key={book.shelf} />);
+        shelves.push(book.shelf);
       }
-
-      collection.push(<Book book={book} key={book.title} />);
       lastShelf = book.shelf;
     });
 
-    return (  
-	    <div>{shelf}</div>
-    )   
+
+    shelves.map((shelf, i) => {
+        const filteredBooks = books.filter((book, i) => {
+            return book.shelf === shelf
+            console.log(filteredBooks);
+        }); 
+        console.log(<Shelf books={ shelf, filteredBooks } />)
+     })
+
+    return (
+      <div><Shelf books={ filteredBooks } /></div>
+    )
   }
 }
 
