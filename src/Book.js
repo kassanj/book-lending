@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
+import MoreOptions from './MoreOptions'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import SelectField from 'material-ui/SelectField';
+import changeCase from 'change-case'
  
 
 class Book extends Component {
 
   render() {
 
+
 	const { book } = this.props
+	var changeCase = require('change-case');
+	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
+
+	const results = shelves.filter( x => x !== book.shelf );
+
 
     return ( 
     	<li>     
@@ -18,10 +26,10 @@ class Book extends Component {
 		        <div className="book-shelf-changer">
 		          <select>
 		            <option value="none" disabled>Move to...</option>
-		            <option value="currentlyReading">Currently Reading</option>
-		            <option value="wantToRead">Want to Read</option>
-		            <option value="read">Read</option>
-		            <option value="none">None</option>
+		            <option values={book.shelf}>{changeCase.sentenceCase(book.shelf)}</option>
+		            {results.map(opt => (
+						<option values={opt}>{changeCase.sentenceCase(opt)}</option>
+					))}
 		          </select>
 		        </div>
 		      </div>
