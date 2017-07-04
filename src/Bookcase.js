@@ -17,7 +17,7 @@ class Bookcase extends Component {
       if (book.shelf !== lastShelf) {
         shelf.push(<Shelf shelf={book.shelf} array={collection} key={book.shelf} />);
       }
-      if (book.shelf == )
+
       collection.push(<Book book={book} key={book.title} />);
       lastShelf = book.shelf;
     });
