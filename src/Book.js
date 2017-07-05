@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MoreOptions from './MoreOptions'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import SelectField from 'material-ui/SelectField';
@@ -10,13 +9,10 @@ class Book extends Component {
 
   render() {
 
-
 	const { book } = this.props
 	var changeCase = require('change-case');
 	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
-
 	const results = shelves.filter( x => x !== book.shelf );
-
 
     return ( 
     	<li>     
@@ -24,7 +20,9 @@ class Book extends Component {
 		      <div className="book-top">
 		      <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
 		        <div className="book-shelf-changer">
-		          <select>
+		          <select 
+		          	value={book.shelf} 
+		          	onChange={ e => this.setState({ shelf: e.target.value })}>
 		            <option value="none" disabled>Move to...</option>
 		            <option values={book.shelf}>{changeCase.sentenceCase(book.shelf)}</option>
 		            {results.map(opt => (
