@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ListBooks from './ListBooks'
-import SearchBook from './SearchBook'
-import * as BooksAPI from './BooksAPI'
+import ListBooks from './components/ListBooks'
+import SearchBook from './components/SearchBook'
+import * as BooksAPI from './utils/BooksAPI'
 import './App.css';
 
 class BooksApp extends Component {
@@ -18,7 +18,7 @@ class BooksApp extends Component {
   updateBook(shelf, book) {
     BooksAPI.update(book).then(book => {
       this.setState(state => ({
-        books: state.books.update([ book ])
+        books: state.books.concat([ book ])
       }))
     })
   }  

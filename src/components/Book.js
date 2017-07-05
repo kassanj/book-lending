@@ -9,7 +9,7 @@ class Book extends Component {
 
   render() {
 
-	const { book } = this.props
+	const { book, onUpdateBook } = this.props
 	var changeCase = require('change-case');
 	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
 	const results = shelves.filter( x => x !== book.shelf );
@@ -21,12 +21,12 @@ class Book extends Component {
 		      <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
 		        <div className="book-shelf-changer">
 		          <select 
-		          	value={book.shelf} 
-		          	onChange={ e => this.setState({ shelf: e.target.value })}>
+		          	value={book.shelf}
+		          	onChange={onUpdateBook}>
 		            <option value="none" disabled>Move to...</option>
-		            <option values={book.shelf}>{changeCase.sentenceCase(book.shelf)}</option>
+		            <option selected value={book.shelf}>{changeCase.sentenceCase(book.shelf)}</option>
 		            {results.map(opt => (
-						<option values={opt}>{changeCase.sentenceCase(opt)}</option>
+						<option value={opt}>{changeCase.sentenceCase(opt)}</option>
 					))}
 		          </select>
 		        </div>
