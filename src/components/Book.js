@@ -6,7 +6,7 @@ import changeCase from 'change-case'
  
 
 class Book extends Component {
-
+	
   render() {
 
 	const { book, onUpdateBook } = this.props
@@ -22,7 +22,7 @@ class Book extends Component {
 		        <div className="book-shelf-changer">
 		          <select 
 		          	value={book.shelf}
-		          	onChange={onUpdateBook}>
+		          	onChange={() => onUpdateBook(book, book.shelf)}>
 		            <option value="none" disabled>Move to...</option>
 		            <option selected value={book.shelf}>{changeCase.sentenceCase(book.shelf)}</option>
 		            {results.map(opt => (
