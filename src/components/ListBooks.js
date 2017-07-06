@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 class ListBooks extends Component {
 
   render() {
-    const { books } = this.props
+    const { books, onChange } = this.props
 
     return (
       <div className="list-books">
@@ -16,7 +16,7 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Bookcase books={ books } />
+            <Bookcase books={books} onChange={onChange} />
           </div>
         </div>
         <div className="open-search">

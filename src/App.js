@@ -7,21 +7,36 @@ import * as BooksAPI from './utils/BooksAPI'
 import './App.css';
 
 class BooksApp extends Component {
-  state = {
-    books: []
+  constructor(props) {
+    super(props);
+
+    this.state = { books: [] }
+
+    this.updateBook = this.updateBook.bind(this);
   }
+
+  // state = {
+  //   books: []
+  // }
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
   }
-  updateBook(shelf, book) {
-    BooksAPI.update(book).then(book => {
-      this.setState(state => ({
-        books: state.books.concat([ book ])
-      }))
-    })
-  }  
+  // updateBook(book, shelf) {
+  //   BooksAPI.update(book, shelf).then(book => {
+  //     this.setState(state => ({
+  //       books: state.books.concat([ book ])
+  //     }))
+  //   })
+  // }
+  updateBook(newShelf) {
+    this.setState({
+      shelf: newShelf
+    });
+  }
+
+
   render() {
     return (
     <MuiThemeProvider>
@@ -29,17 +44,13 @@ class BooksApp extends Component {
          <Route exact path='/' render={() => (
             <ListBooks 
               books={this.state.books} 
-              onUpdateBook={(shelf, book) => {
-                this.updateBook(shelf, book)
-              }}
+              onChange={this.updateBook}
             />
         )}/>
         <Route path='/search' render={() => (
           <SearchBook 
             books={this.state.books} 
-            onUpdateBook={(shelf, book) => {
-              this.updateBook(shelf, book)
-            }}
+            onChange={this.updateBook}
           />
         )}/>
       </div>
