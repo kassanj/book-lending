@@ -10,7 +10,7 @@ class Shelf extends Component {
   render() {
 
   	var changeCase = require('change-case');
-	const { filteredBooks, shelf, onChange } = this.props
+	const { filteredBooks, shelf, updateBook } = this.props
 
     return (
     	<div className="bookshelf">
@@ -18,7 +18,7 @@ class Shelf extends Component {
 	      	<div className="bookshelf-books">
 	        <ol className="books-grid">
 	     		{this.props.filteredBooks.map(function(book, i){
-        			return <Book book={book} key={i} onChange={onChange} />;
+        			return <Book book={book} key={i} updateBook={updateBook} />;
     			})}
 	        </ol>
 	      </div>

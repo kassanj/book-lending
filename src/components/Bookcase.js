@@ -7,7 +7,7 @@ class Bookcase extends Component {
 
   render() {
 
-  	const { books, onChange  } = this.props
+  	const { books, updateBook } = this.props
   	var shelves = [];
     var lastShelf = null;
 
@@ -23,7 +23,7 @@ class Bookcase extends Component {
       const filteredBooks = books.filter((book, i) => {
         return book.shelf === shelf
       });
-      return <Shelf key={i} shelf={shelf} filteredBooks={filteredBooks} onChange={onChange}  />
+      return <Shelf key={i} shelf={shelf} filteredBooks={filteredBooks} updateBook={updateBook}  />
     })
 
 
