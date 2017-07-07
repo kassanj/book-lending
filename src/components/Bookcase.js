@@ -5,11 +5,16 @@ import Shelf from './Shelf'
 
 class Bookcase extends Component {
 
+  static propTypes = {
+    book: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
+  }
+
   render() {
 
   	const { books, updateBook } = this.props
   	var shelves = [];
-    var lastShelf = null;
+    var lastShelf = 'null';
 
     this.props.books.forEach(function(book) {
       if (book.shelf !== lastShelf) {

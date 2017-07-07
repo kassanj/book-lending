@@ -1,34 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import * as BooksAPI from '../utils/BooksAPI'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
 
 class SearchBooks extends Component {
 	static propTypes = {
-    books: PropTypes.array.isRequired
-  }
-
-  state = {
-    query: ''
-  }
-
-  updateQuery = (query) => {
-    this.setState({ query: query })
+    books: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired,
+    searchBook: PropTypes.func.isRequired
   }
 
   render() {
-  	const { books, updateBook } = this.props
-  	const { query } = this.state
-
-    let showingBooks
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showingBooks = books.filter((books) => match.test(books.title) || match.test(books.authors))
-    } else {
-      showingBooks = books
-    }
-
+  	const { searchBook, updateBook, books } = this.props
+  	
     return (      
    		<div className="search-books">
 	        <div className="search-books-bar">
@@ -38,17 +24,15 @@ class SearchBooks extends Component {
 		            className='search-contacts'
 		            type='text'
 		            placeholder='Search by title or author'
-		            value={query}
-		            onChange={(event) => this.updateQuery(event.target.value)}
+		            value={this.props.query}
+		            onChange={(event) => this.props.searchBook(event.target.value, this.props.maxResults)}
 	        		/>
 	          </div>
 	        </div>
 	        <div className="search-books-results">
 	          <ol className="books-grid">
-	          {showingBooks.map((book, i) => (
-	          	<li>
-	          		<Book book={book} key={i} updateBook={updateBook}/>
-	          	</li>
+	          {books.map((book, id) => (
+	          		<Book book={book} key={id} updateBook={updateBook}/>
           	))}
 	         </ol>
 	        </div>

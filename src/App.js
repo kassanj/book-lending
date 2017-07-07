@@ -10,8 +10,15 @@ class BooksApp extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { books: [] }
+    this.state = { books: [], query: '' }
+
+    this.searchBook = this.searchBook.bind(this);
     this.updateBook = this.updateBook.bind(this);
+    this.handleError = this.handleError.bind(this);
+  }
+
+  handleError() {
+    console.log('THIS', this);
   }
 
   componentDidMount() {
@@ -33,8 +40,22 @@ class BooksApp extends Component {
     }
   }
 
-  // updateBook(book, shelf) { console.log('book', book); console.log('shelf', shelf); }
+  searchBook(query, maxResults) {
+    this.setState({query: query})
 
+    if(query.trim() !== '') {
+      BooksAPI.search(query, maxResults).then(books => this.setState({
+        books: books
+      }))
+    } else {
+      this.setState({
+        books: []
+      })
+    }
+  }
+
+  // searchBook(query, maxResults) { console.log('query', query); console.log('maxResults', maxResults); }
+  // updateBook(book, shelf) { console.log('book', book); console.log('shelf', shelf); }
 
   render() {
     return (
@@ -48,7 +69,8 @@ class BooksApp extends Component {
         )}/>
         <Route path='/search' render={() => (
           <SearchBook 
-            books={this.state.books} 
+            books={this.state.books}
+            searchBook={this.searchBook}
             updateBook={this.updateBook}
           />
         )}/>

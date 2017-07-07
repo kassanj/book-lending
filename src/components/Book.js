@@ -6,13 +6,18 @@ import changeCase from 'change-case'
  
 
 class Book extends Component {
+
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
+  }
 	
   render() {
 
 	const { book, updateBook } = this.props
 	var changeCase = require('change-case');
 	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
-	const results = shelves.filter( x => x !== book.shelf );
+	var results = shelves.filter( x => x !== book.shelf );
 
     return ( 
     	<li>     

@@ -6,6 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class ListBooks extends Component {
 
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
+  }
+
   render() {
     const { books, updateBook } = this.props
 

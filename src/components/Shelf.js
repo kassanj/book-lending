@@ -6,10 +6,14 @@ import Book from './Book'
 
 class Shelf extends Component {
 
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
+  }
 
   render() {
 
-  	var changeCase = require('change-case');
+  var changeCase = require('change-case');
 	const { filteredBooks, shelf, updateBook } = this.props
 
     return (
