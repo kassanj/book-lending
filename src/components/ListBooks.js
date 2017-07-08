@@ -14,6 +14,18 @@ class ListBooks extends Component {
   render() {
     const { books, updateBook } = this.props
 
+    var shelves = [];
+    var lastShelf = 'null';
+
+    this.props.books.forEach(function(book) {
+      if (book.shelf !== lastShelf) {
+        shelves.push(book.shelf);
+      }
+      lastShelf = book.shelf;
+    });
+
+
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -21,7 +33,7 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Bookcase books={books} updateBook={updateBook} />
+            <Bookcase books={books} updateBook={updateBook} shelves={shelves} />
           </div>
         </div>
         <div className="open-search">

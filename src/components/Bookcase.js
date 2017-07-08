@@ -12,17 +12,7 @@ class Bookcase extends Component {
 
   render() {
 
-  	const { books, updateBook } = this.props
-  	var shelves = [];
-    var lastShelf = 'null';
-
-    this.props.books.forEach(function(book) {
-      if (book.shelf !== lastShelf) {
-        shelves.push(book.shelf);
-      }
-      lastShelf = book.shelf;
-    });
-
+  	const { books, updateBook, shelves } = this.props
 
     const mappedShelves = shelves.map((shelf, i) => {
       const filteredBooks = books.filter((book, i) => {
