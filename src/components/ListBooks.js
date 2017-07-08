@@ -24,6 +24,7 @@ class ListBooks extends Component {
       lastShelf = book.shelf;
     });
 
+    shelves = Array.from(new Set(shelves));
 
 
     return (
