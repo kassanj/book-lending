@@ -10,7 +10,7 @@ class ListBooks extends Component {
     books: PropTypes.array.isRequired,
     updateBook: PropTypes.func.isRequired
   }
-
+  
   render() {
     const { books, updateBook } = this.props
 

@@ -10,18 +10,11 @@ class BooksApp extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { books: [], query: '' }
-
-    this.searchBook = this.searchBook.bind(this);
+    this.state = { books: [] }
     this.updateBook = this.updateBook.bind(this);
-    this.handleError = this.handleError.bind(this);
   }
 
-  handleError() {
-    console.log('THIS', this);
-  }
-
-  componentDidMount() {
+  componentWillMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
@@ -36,20 +29,6 @@ class BooksApp extends Component {
           books: state.books.filter(b => b.id !== book.id).concat([book])
 
         }))
-      })
-    }
-  }
-
-  searchBook(query, maxResults) {
-    this.setState({query: query})
-
-    if(query.trim() !== '') {
-      BooksAPI.search(query, maxResults).then(books => this.setState({
-        books: books
-      }))
-    } else {
-      this.setState({
-        books: []
       })
     }
   }
@@ -69,7 +48,7 @@ class BooksApp extends Component {
         )}/>
         <Route path='/search' render={() => (
           <SearchBook 
-            books={this.state.books}
+            // books={this.state.books}
             searchBook={this.searchBook}
             updateBook={this.updateBook}
           />
