@@ -7,6 +7,15 @@ import changeCase from 'change-case'
 
 class Book extends Component {
 
+	static defaultProps = {
+        books: {
+            authors: [],
+            imageLinks: {
+            	thumbnail: "http://placehold.it/200x200"
+            }
+        }
+    };
+
   static propTypes = {
     books: PropTypes.array.isRequired,
     updateBook: PropTypes.func.isRequired
@@ -18,6 +27,12 @@ class Book extends Component {
 	var changeCase = require('change-case');
 	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
 	var results = shelves.filter( x => x !== book.shelf );
+
+ var values = book.authors.map( function(value, i){
+    return (
+      <p>{value}</p>
+    );
+  });
 
     return ( 
     	<li>     
@@ -35,7 +50,7 @@ class Book extends Component {
 		        </div>
 		      </div>
 		      <div className="book-title">{book.title}</div>
-		      <div className="book-authors">{book.authors[0]}</div>		      
+		      <div className="book-authors">{values}</div>		      
 		       {/*<div className="book-authors">
 				{book.authors.map(author => (
 					<div key={author}>{author}</div>
