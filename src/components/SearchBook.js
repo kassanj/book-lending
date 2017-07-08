@@ -29,6 +29,15 @@ class SearchBooks extends Component {
   render() {
 
   	const { searchBook, updateBook } = this.props
+    const { books } = this.state
+
+    let mappedBooks = []
+    if (books && books.length > 0 ) {
+        mappedBooks = books.map((book, id) => {
+            return  <Book book={book} key={id} updateBook={updateBook}/>
+        })
+    }
+
 
     return (      
    		<div className="search-books">
@@ -46,9 +55,9 @@ class SearchBooks extends Component {
 	        </div>
 	        <div className="search-books-results">
 	          <ol className="books-grid">
-	          {this.state.books.map((book, id) => (
-	          		<Book book={book} key={id} updateBook={updateBook}/>
-          	))}
+     
+	          {mappedBooks}
+          
 	         </ol>
 	        </div>
     	</div>
