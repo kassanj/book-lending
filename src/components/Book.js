@@ -28,17 +28,19 @@ class Book extends Component {
 	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
 	var results = shelves.filter( x => x !== book.shelf );
 
- var values = book.authors.map( function(value, i){
-    return (
-      <p>{value}</p>
-    );
-  });
+	var values = book.authors !== undefined?
+	  book.authors.map( function(value, i){
+		return (
+		  <p>{value}</p>
+		);
+	})
+	:'';
 
     return ( 
     	<li>     
 		   	<div className="book">
 		      <div className="book-top"> 
-		      <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url('${book.imageLinks.thumbnail}')` }}></div>
+		      <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks !== undefined? book.imageLinks.thumbnail:''})` }}></div>
 		        <div className="book-shelf-changer">
 		        <select onChange={(event) => updateBook(book, event.target.value)}>
 		            <option value="none" disabled>Move to...</option>
@@ -50,12 +52,7 @@ class Book extends Component {
 		        </div>
 		      </div>
 		      <div className="book-title">{book.title}</div>
-		      <div className="book-authors">{values}</div>		      
-		       {/*<div className="book-authors">
-				{book.authors.map(author => (
-					<div key={author}>{author}</div>
-				))}
-		      </div>*/}
+		      <div className="book-authors">{values}</div>
 		    </div>
 	    </li>
     )
