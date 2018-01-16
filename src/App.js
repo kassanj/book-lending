@@ -13,7 +13,7 @@ class BooksApp extends Component {
     this.state = { books: [] }
     this.updateBook = this.updateBook.bind(this);
   }
-
+// TEST // 
   componentWillMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
@@ -21,7 +21,7 @@ class BooksApp extends Component {
   }
 
   updateBook(book, shelf) {
-    if (book.shelf !== shelf) { 
+    if (book.shelf !== shelf) {
       BooksAPI.update(book, shelf).then(() => {
         book.shelf = shelf
 
@@ -41,13 +41,13 @@ class BooksApp extends Component {
     <MuiThemeProvider>
       <div className="app">
          <Route exact path='/' render={() => (
-            <ListBooks 
-              books={this.state.books} 
+            <ListBooks
+              books={this.state.books}
               updateBook={this.updateBook}
             />
         )}/>
         <Route path='/search' render={() => (
-          <SearchBook 
+          <SearchBook
             searchBook={this.searchBook}
             updateBook={this.updateBook}
           />
