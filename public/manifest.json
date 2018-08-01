@@ -3,7 +3,7 @@
   "name": "Book Lending App",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "book.ico",
       "sizes": "192x192",
       "type": "image/png"
     }

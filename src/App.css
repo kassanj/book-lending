@@ -40,8 +40,10 @@ body, .app {
 }
 
 .bookshelf-title {
-/*  border-bottom: 1px solid #dedede;*/
+  margin-top: 40px;
+  margin-left: 100px;
 }
+
 .bookshelf-books {
   text-align: center;
 }
