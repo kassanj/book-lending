@@ -11,7 +11,7 @@ const Book = (props) => (
  <li>
  	<div className="book">
     <div className="book-top">
-    <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.book.imageLinks !== undefined? props.book.imageLinks.thumbnail:''})` }}></div>
+    <div className="book-cover" style={{ backgroundImage: `url(${props.book.imageLinks !== undefined? props.book.imageLinks.thumbnail:''})` }}></div>
       <div className="book-shelf-changer">
       <select onChange={(event) => props.updateBook(props.book, event.target.value)}>
           <option value="none" disabled>Move to...</option>
