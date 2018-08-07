@@ -4,61 +4,36 @@ import escapeRegExp from 'escape-string-regexp'
 import SelectField from 'material-ui/SelectField';
 import changeCase from 'change-case'
 
+const shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
 
-class Book extends Component {
+const Book = (props) => (
 
-	static defaultProps = {
-        books: {
-            authors: [],
-            imageLinks: {
-            	thumbnail: "http://placehold.it/200x200"
-            }
-        }
-    };
-
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-    updateBook: PropTypes.func.isRequired
-  }
-
-  render() {
-
-	const { book, updateBook } = this.props
-	var changeCase = require('change-case');
-	var shelves = ['currentlyReading', 'wantToRead', 'read', 'none' ];
-	var results = shelves.filter( x => x !== book.shelf );
-
-	var values = book.authors !== undefined?
-	  book.authors.map( function(value, i){
-		return (
-		  <p>{value}</p>
-		);
-	})
-	:'';
-
-  const style = { width: 128, height: 192, backgroundImage: `url(${book.imageLinks !== undefined? book.imageLinks.thumbnail:''})` }
-
-    return (
-    	<li>
-		   	<div className="book">
-		      <div className="book-top">
-		      <div className="book-cover" style={style}></div>
-		        <div className="book-shelf-changer">
-		        <select onChange={(event) => updateBook(book, event.target.value)}>
-		            <option value="none" disabled>Move to...</option>
-		            <option value={book.shelf}>{changeCase.sentenceCase(book.shelf)}</option>
-		            {results.map(opt => (
-						<option key={opt} value={opt}>{changeCase.sentenceCase(opt)}</option>
-					))}
-		          </select>
-		        </div>
-		      </div>
-		      <div className="book-title">{book.title}</div>
-		      <div className="book-authors">{values}</div>
-		    </div>
-	    </li>
-    )
-  }
-}
+ <li>
+ 	<div className="book">
+    <div className="book-top">
+    <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.book.imageLinks !== undefined? props.book.imageLinks.thumbnail:''})` }}></div>
+      <div className="book-shelf-changer">
+      <select onChange={(event) => props.updateBook(props.book, event.target.value)}>
+          <option value="none" disabled>Move to...</option>
+          <option value={props.book.shelf}>{changeCase.sentenceCase(props.book.shelf)}</option>
+          { shelves.filter( x => x !== props.book.shelf ).map(opt => (
+      			<option key={opt} value={opt}>{changeCase.sentenceCase(opt)}</option>
+      		))}
+        </select>
+      </div>
+    </div>
+    <div className="book-title">{props.book.title}</div>
+    <div className="book-authors">
+        { props.book.authors !== undefined?
+          props.book.authors.map( (value, i) => {
+            return (
+                <p>{value}</p>
+            );
+          })
+        :''
+      }</div>
+  </div>
+</li>
+);
 
 export default Book
