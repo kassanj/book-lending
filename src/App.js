@@ -13,8 +13,8 @@ class BooksApp extends Component {
     this.state = { books: [] }
     this.updateBook = this.updateBook.bind(this);
   }
-  
-  componentWillMount() {
+
+  componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
