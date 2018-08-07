@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import SelectField from 'material-ui/SelectField';
 import changeCase from 'change-case'
- 
+
 
 class Book extends Component {
 
@@ -20,7 +20,7 @@ class Book extends Component {
     books: PropTypes.array.isRequired,
     updateBook: PropTypes.func.isRequired
   }
-	
+
   render() {
 
 	const { book, updateBook } = this.props
@@ -36,11 +36,13 @@ class Book extends Component {
 	})
 	:'';
 
-    return ( 
-    	<li>     
+  const style = { width: 128, height: 192, backgroundImage: `url(${book.imageLinks !== undefined? book.imageLinks.thumbnail:''})` }
+
+    return (
+    	<li>
 		   	<div className="book">
-		      <div className="book-top"> 
-		      <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks !== undefined? book.imageLinks.thumbnail:''})` }}></div>
+		      <div className="book-top">
+		      <div className="book-cover" style={style}></div>
 		        <div className="book-shelf-changer">
 		        <select onChange={(event) => updateBook(book, event.target.value)}>
 		            <option value="none" disabled>Move to...</option>
