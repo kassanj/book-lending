@@ -1,45 +1,74 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../utils/BooksAPI'
-import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
 
 class SearchBooks extends Component {
-  static propTypes = {
-    updateBook: PropTypes.func.isRequired
+
+  state = { books: [], currBooks: [] }
+
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then(books => {
+        const booksId = books.map(book => ({ id: book.id, shelf: book.shelf }))
+        this.setState({ currentBooks: booksId })
+      })
   }
 
-  state = { books: [], query: '' }
-
   searchBook = (query, maxResults) => {
-    this.setState({query: query})
-
     if(query.trim() !== '') {
-      BooksAPI.search(query, maxResults).then(books => this.setState({
-        books: books
-      }))
+      BooksAPI.search(query, maxResults).then(books => {
+        if(!books || books.hasOwnProperty('error')) {
+          this.setState({ books: [] })
+        } else {
+            this.setState({ books: books })
+        }
+       })
     } else {
-      this.setState({
-        books: []
-      })
+      this.setState( { books: [] })
     }
+  }
+
+  bookUpdate = (book, shelf) => {
+    if (book.shelf !== shelf) {
+       BooksAPI.update(book, shelf).then(() => {
+         book.shelf = shelf
+
+         this.setState(state => ({
+           books: state.books.filter(b => b.id !== book.id).concat([book])
+
+         }))
+       })
+     }
   }
 
   render() {
+      const { books, currentBooks } = this.state
+      let booksList
 
-  	const { searchBook, updateBook } = this.props
-    const { books } = this.state
+      if (books.length > 0) {
+        booksList = books.map((book, index) => {
+          currentBooks.forEach(cbook => {
+            if(cbook.id === book.id) {
+              book.shelf = cbook.shelf
+            }
+          })
 
-    let mappedBooks = []
-    if (books && books.length > 0 ) {
-        mappedBooks = books.map((book, id) => {
-            return  <Book book={book} key={id} updateBook={updateBook}/>
+          return (
+            <li key={index}>
+              <Book
+                bookUpdate={this.bookUpdate}
+                book={book} />
+            </li>
+          )
         })
-    }
+      } else {
+        booksList = null
+      }
 
 
-    return (      
+    return (
    		<div className="search-books">
 	        <div className="search-books-bar">
 	         <Link to='/' className="close-search">Close</Link>
@@ -55,9 +84,9 @@ class SearchBooks extends Component {
 	        </div>
 	        <div className="search-books-results">
 	          <ol className="books-grid">
-     
-	          {mappedBooks}
-          
+
+	          {booksList}
+
 	         </ol>
 	        </div>
     	</div>

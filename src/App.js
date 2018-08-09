@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import BookList from './components/ListBooks'
+import BookList from './components/BookList'
 import BookSearch from './components/SearchBook'
 
 import './App.css';

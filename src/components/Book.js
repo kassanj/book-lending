@@ -13,13 +13,15 @@ const Book = (props) => (
     <div className="book-top">
     <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.book.imageLinks !== undefined? props.book.imageLinks.thumbnail:''})` }}></div>
       <div className="book-shelf-changer">
-      <select onChange={(event) => props.updateBook(props.book, event.target.value)}>
-          <option value="none" disabled>Move to...</option>
-          <option value={props.book.shelf}>{changeCase.sentenceCase(props.book.shelf)}</option>
-          { shelves.filter( x => x !== props.book.shelf ).map(opt => (
-      			<option key={opt} value={opt}>{changeCase.sentenceCase(opt)}</option>
-      		))}
+
+      <select onChange={(e) => props.bookUpdate(props.book, e.target.value)} value={props.book.shelf ? props.book.shelf : 'none'}>
+          <option value="moveTo" disabled>Move to...</option>
+          <option value="currentlyReading">Currently Reading</option>
+          <option value="wantToRead">Want to Read</option>
+          <option value="read">Read</option>
+          <option value="none">None</option>
         </select>
+
       </div>
     </div>
     <div className="book-title">{props.book.title}</div>
@@ -35,4 +37,6 @@ const Book = (props) => (
   </div>
 </li>
 );
+
+
 export default Book

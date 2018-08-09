@@ -1,33 +1,85 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import Book from './Book'
+import * as BooksAPI from '../utils/BooksAPI'
+
 import Shelf from './Shelf'
 
-class Bookcase extends Component {
+class BookCase extends Component {
 
-  static propTypes = {
-    book: PropTypes.array.isRequired,
-    updateBook: PropTypes.func.isRequired
+  state = {
+      books: []
+  }
+
+  componentDidMount() {
+      BooksAPI.getAll().then(books => {
+          this.setState({
+              books: books
+          })
+      })
+  }
+
+  bookUpdate = (book, shelf) => {
+    if (book.shelf !== shelf) {
+       BooksAPI.update(book, shelf).then(() => {
+         book.shelf = shelf
+
+         this.setState(state => ({
+           books: state.books.filter(b => b.id !== book.id).concat([book])
+
+         }))
+       })
+     }
   }
 
   render() {
+     const { books } = this.state
 
-  	const { books, updateBook, shelves } = this.props
+     let currentList = [];
+     let wantList = [];
+     let readList = [];
 
-    const mappedShelves = shelves.map((shelf, i) => {
-      const filteredBooks = books.filter((book, i) => {
-        return book.shelf === shelf
-      });
-      return <Shelf key={i} shelf={shelf} filteredBooks={filteredBooks} updateBook={updateBook}  />
-    })
+     books.forEach(book => {
+         switch(book.shelf) {
+             case 'currentlyReading':
+                 currentList.push(book)
+                 break
+             case 'wantToRead':
+                 wantList.push(book)
+                 break
+             case 'read':
+                 readList.push(book)
+                 break
+             default:
+                 break
+         }
+     })
 
+     const shelves = [
+         {
+             name: 'Currently Reading',
+             books : currentList
+         },
+         {
+             name: 'Want To Read',
+             books : wantList
+         },
+         {
+             name: 'Read',
+             books : readList
+         }
+     ]
 
     return (
-      <div>{mappedShelves}</div>
+      <div className="list-books-content">
+        <div>{ shelves.map( (shelf, index) => (
+              <Shelf
+                  key={index}
+                  title={shelf.name}
+                  books={shelf.books}
+                  bookUpdate={this.bookUpdate} />
+          ) ) }</div>
+      </div>
     )
   }
 }
 
-export default Bookcase
-
-
+export default BookCase
