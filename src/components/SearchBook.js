@@ -12,7 +12,7 @@ class SearchBooks extends Component {
     BooksAPI.getAll()
       .then(books => {
         const booksId = books.map(book => ({ id: book.id, shelf: book.shelf }))
-        this.setState({ currentBooks: booksId })
+        this.setState({ currBooks: booksId })
       })
   }
 
@@ -44,14 +44,14 @@ class SearchBooks extends Component {
   }
 
   render() {
-      const { books, currentBooks } = this.state
+      const { books, currBooks } = this.state
       let booksList
 
       if (books.length > 0) {
         booksList = books.map((book, index) => {
-          currentBooks.forEach(cbook => {
-            if(cbook.id === book.id) {
-              book.shelf = cbook.shelf
+          currBooks.forEach(currbook => {
+            if(currbook.id === book.id) {
+              book.shelf = currbook.shelf
             }
           })
 
